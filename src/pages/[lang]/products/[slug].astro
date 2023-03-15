@@ -1,0 +1,23 @@
+---
+import { getProduct } from "../../../api/wordpress/products";
+import Layout from "../../../layouts/Layout.astro";
+
+const { slug, lang } = Astro.params;
+const product = slug && lang ? await getProduct(slug, lang) : null;
+
+if (!product) {
+	return new Response(null, {
+		status: 404,
+		statusText: 'Not found'
+	});
+}
+---
+
+<Layout
+	yoast={product.yoast_head_json}
+>
+	<article>
+		<h1>{product.name}</h1>
+		<div set:html={product.description}></div>
+	</article>
+</Layout>

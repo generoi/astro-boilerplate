@@ -15,5 +15,5 @@ export default interface Page {
 	content: {
 		rendered: string
 	}
-	yoast_head_json: YoastHead
+	yoast_head_json: YoastHead,
 }

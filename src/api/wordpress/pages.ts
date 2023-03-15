@@ -2,10 +2,9 @@
 import type Page from "../../types/page.interface";
 import fetchApi from "../fetch";
 
-export async function getPages() {
-	const response = await fetchApi('/wp-json/wp/v2/pages?per_page=100');
+export async function getPages(lang: string) {
+	const response = await fetchApi('/wp-json/wp/v2/pages', {per_page: 100, lang});
 	if (response.status !== 200) {
-		console.log(response.statusText);
 		throw new Error(`Unexpected status code ${response.status}: ${response.statusText}`);
 	}
 
@@ -13,8 +12,8 @@ export async function getPages() {
 	return result;
 }
   
-export async function getPage(slug: string) {
-	const response = await fetchApi(`/wp-json/wp/v2/pages?per_page=1&slug=${slug}`);
+export async function getPage(slug: string, lang: string) {
+	const response = await fetchApi('/wp-json/wp/v2/pages', {per_page: 1, slug, lang});
 	if (response.status !== 200) {
 		throw new Error(`Unexpected status code ${response.status}`);
 	}
