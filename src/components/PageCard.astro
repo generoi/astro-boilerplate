@@ -1,0 +1,18 @@
+---
+import type Page from '../types/page.interface';
+
+export interface Props {
+	page: Page;
+}
+
+const { page } = Astro.props;
+
+---
+
+<article>
+	<a href={page.slug}>
+		<h2>{page.title.rendered}</h2>
+	</a>
+</article>
+<style>
+</style>

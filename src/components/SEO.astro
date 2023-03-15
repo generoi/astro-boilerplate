@@ -1,0 +1,53 @@
+---
+import { SEO } from 'astro-seo';
+import type YoastHead from '../types/yoast.interface';
+
+interface BasicProps {
+	description?: string
+}
+
+interface PropsWithYoast extends BasicProps {
+	yoast: YoastHead
+}
+
+interface PropsWithTitle extends BasicProps {
+	title: string
+}
+
+export type Props = PropsWithTitle | PropsWithYoast;
+
+const { title, yoast } = Astro.props;
+
+const ogImage = yoast?.og_image?.at(0);
+---
+<SEO
+	title={title || yoast?.title}
+	description={yoast?.description}
+	noindex={yoast?.robots.index === 'noindex'}
+	nofollow={yoast?.robots.follow === 'nofollow'}
+	openGraph={ogImage ? {
+		optional: {
+			description: yoast.og_description,
+			locale: yoast.og_locale,
+			siteName: yoast.og_site_name,
+		},
+		basic: {
+			title: yoast.og_title,
+			type: yoast.og_type,
+			image: ogImage.url,
+			url: yoast.og_url,
+		},
+		image: {
+			url: ogImage.url,
+			type: ogImage.type,
+			width: ogImage.width,
+			height: ogImage.height,
+		},
+		article: {
+			modifiedTime: yoast.article_modified_time,
+		}
+	} : undefined}
+	twitter={yoast?.twitter_card ? {
+		card: yoast.twitter_card,
+	} : undefined}
+/>

@@ -1,0 +1,18 @@
+---
+import type Product from '../types/product.interface';
+
+export interface Props {
+	product: Product;
+}
+
+const { product } = Astro.props;
+
+---
+
+<article>
+	<a href={`/products/${product.slug}`}>
+		<h2>{product.name}</h2>
+	</a>
+</article>
+<style>
+</style>
