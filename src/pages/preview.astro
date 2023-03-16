@@ -1,0 +1,17 @@
+---
+import { getPreview } from "../api/wordpress/pages";
+import Layout from "../layouts/Layout.astro";
+
+const previewId = parseInt(Astro.url.searchParams.get('preview_id') || '');
+
+const page = await getPreview(previewId);
+
+---
+<Layout
+	yoast={page.yoast_head_json}
+>
+	<article>
+		<h1>{page.title.rendered}</h1>
+		<div set:html={page.content.rendered}></div>
+	</article>
+</Layout>
