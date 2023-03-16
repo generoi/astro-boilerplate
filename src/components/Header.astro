@@ -1,0 +1,52 @@
+---
+import { getMenu } from "../api/wordpress/menus";
+import CartMenuItem from "./CartMenuItem.svelte";
+
+const { lang } = Astro.params;
+const menu = await getMenu('primary_navigation', lang || 'en');
+---
+
+<nav>
+	<ul>
+		{
+			menu.items.map(item => {
+				return (
+					<li>
+						<a href={item.url} target={item.target} title={item.attr_title}>
+							{item.title}
+						</a>
+					</li>
+				)
+			})
+		}
+		<li>
+			<CartMenuItem client:load />
+		</li>
+	</ul>
+
+</nav>
+
+<style lang="scss">
+	nav {
+		background: var(--color-primary);
+		color: var(--color-white);
+
+		a {
+			color: inherit;
+			text-decoration: none;
+			padding: 1em;
+			display: block;
+		}
+	}
+
+	ul {
+		padding-left: 0;
+		list-style: none;
+		display: flex;
+	}
+
+	li {
+		display: flex;
+		align-items: center;
+	}
+</style>

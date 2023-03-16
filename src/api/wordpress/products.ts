@@ -5,7 +5,7 @@ import type Product from "../../types/product.interface";
 import fetchApi from "../fetch";
 
 export async function getProducts(lang: string) {
-	const response = await fetchApi('/wp-json/wc/v3/products', {per_page: 100, lang});
+	const response = await fetchApi('/wp-json/wc/v3/products', {per_page: 100, lang, type: 'simple'});
 	if (response.status !== 200) {
 		throw new Error(`Unexpected status code ${response.status}`);
 	}

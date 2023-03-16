@@ -1,6 +1,8 @@
 ---
 import SEO from "../components/SEO.astro";
 import type {Props as SEOProps} from "../components/SEO.astro";
+import Header from "../components/Header.astro";
+import '../styles/global.scss';
 
 type Props = SEOProps;
 ---
@@ -16,6 +18,7 @@ type Props = SEOProps;
 		></SEO>
 	</head>
 	<body>
+		<Header />
 		<slot />
 	</body>
 </html>

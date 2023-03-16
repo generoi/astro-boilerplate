@@ -10,11 +10,13 @@
 		"astro": "astro"
 	},
 	"dependencies": {
+		"@astrojs/svelte": "^2.1.0",
 		"astro": "^2.0.15",
 		"astro-seo": "^0.7.1",
 		"parse-link-header": "^2.0.0"
 	},
 	"devDependencies": {
-		"@types/parse-link-header": "^2.0.1"
+		"@types/parse-link-header": "^2.0.1",
+		"sass": "^1.59.3"
 	}
 }

@@ -1,5 +1,7 @@
 ---
 import { getProduct } from "../../../api/wordpress/products";
+import AddToCart from "../../../components/AddToCart.svelte";
+import ProductGallery from "../../../components/ProductGallery.svelte";
 import Layout from "../../../layouts/Layout.astro";
 
 const { slug, lang } = Astro.params;
@@ -17,7 +19,30 @@ if (!product) {
 	yoast={product.yoast_head_json}
 >
 	<article>
-		<h1>{product.name}</h1>
-		<div set:html={product.description}></div>
+		<div class="container">
+			<ProductGallery
+				images={product.images}
+			/>
+			<div>
+				<h1>{product.name}</h1>
+				<div set:html={product.description}></div>
+
+				<AddToCart
+					client:load
+					product={product}
+				/>
+			</div>
+		</div>
+
 	</article>
 </Layout>
+
+<style lang="scss">
+	.container {
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: 50% 50%;
+		max-width: 1000px;
+		margin-inline: auto;
+	}
+</style>

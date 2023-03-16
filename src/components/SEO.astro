@@ -42,6 +42,7 @@ const ogImage = yoast?.og_image?.at(0);
 			type: ogImage.type,
 			width: ogImage.width,
 			height: ogImage.height,
+			alt: yoast.og_title,
 		},
 		article: {
 			modifiedTime: yoast.article_modified_time,
