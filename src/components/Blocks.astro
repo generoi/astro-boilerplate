@@ -1,0 +1,21 @@
+---
+import type { Block, HeadingBlock, MediaTextBlock } from '../types/block.interface';
+import MediaText from './blocks/MediaText.astro';
+
+interface Props {
+  blocks: Block[];
+}
+const { blocks } = Astro.props;
+---
+{
+	blocks.map((block) => {
+		switch (block.blockName) {
+			case 'core/media-text':
+				return <MediaText block={block as MediaTextBlock} />
+			case 'core/heading':
+			case 'core/paragraph':
+			default:
+				return <Fragment set:html={block.rendered} />
+		}
+	})
+}

@@ -1,3 +1,4 @@
+import type { Block } from "./block.interface"
 import type YoastHead from "./yoast.interface"
 
 export default interface Page {
@@ -15,5 +16,7 @@ export default interface Page {
 	content: {
 		rendered: string
 	}
+	has_blocks: boolean
+	block_data: Array<Block>
 	yoast_head_json: YoastHead,
 }

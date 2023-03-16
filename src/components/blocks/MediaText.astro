@@ -1,0 +1,9 @@
+---
+import type { HeadingBlock, MediaTextBlock } from '../../types/block.interface';
+
+interface Props {
+  block: MediaTextBlock;
+}
+const { block } = Astro.props;
+---
+<Fragment set:html={block.rendered} />
