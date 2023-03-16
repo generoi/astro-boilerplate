@@ -4,7 +4,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 astro dev",
-		"start": "astro dev",
+		"start": "NODE_TLS_REJECT_UNAUTHORIZED=0 astro dev",
 		"build": "NODE_TLS_REJECT_UNAUTHORIZED=0 astro build",
 		"preview": "astro preview",
 		"astro": "astro"
@@ -16,6 +16,7 @@
 		"parse-link-header": "^2.0.0"
 	},
 	"devDependencies": {
+		"@astrojs/node": "^5.1.0",
 		"@types/parse-link-header": "^2.0.1",
 		"sass": "^1.59.3"
 	}
