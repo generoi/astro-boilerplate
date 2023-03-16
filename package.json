@@ -11,6 +11,10 @@
 	},
 	"dependencies": {
 		"astro": "^2.0.15",
-		"astro-seo": "^0.7.1"
+		"astro-seo": "^0.7.1",
+		"parse-link-header": "^2.0.0"
+	},
+	"devDependencies": {
+		"@types/parse-link-header": "^2.0.1"
 	}
 }

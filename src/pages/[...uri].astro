@@ -1,26 +1,28 @@
 ---
-import type Page from "../../types/page.interface";
-import { getPages } from "../../api/wordpress/pages";
-import Layout from "../../layouts/Layout.astro";
+import type Page from "../types/page.interface";
+import { getPages } from "../api/wordpress/pages";
+import Layout from "../layouts/Layout.astro";
 
 export const prerender = true;
 
 export async function getStaticPaths() {
 	const pages = await getPages('');
 
-	return pages.map((page) => {
+	const paths = pages.map((page) => {
+		const uri = new URL(page.link).pathname.replace(/^\/|\/$/g, '');
+
 		return {
 			params: {
-				slug: page.slug,
-				lang: page.lang,
+				uri,
+				//lang: page.lang,
 			},
 			props: {
 				page
 			}
 		}
 	});
+	return paths;
 }
-
 interface Props {
   page: Page;
 }

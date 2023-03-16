@@ -10,7 +10,7 @@ const { product } = Astro.props;
 ---
 
 <article>
-	<a href={`/${product.lang}/products/${product.slug}`}>
+	<a href={`${new URL(product.permalink).pathname}`}>
 		<h2>{product.name}</h2>
 	</a>
 </article>

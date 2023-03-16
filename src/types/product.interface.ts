@@ -20,6 +20,7 @@ export default interface Product {
 	id: number
 	name: string
 	slug: string
+	permalink: string
 	date_created: string
 	description: string
 	short_description: string

@@ -1,6 +1,7 @@
 // @see https://developer.wordpress.org/rest-api/reference/pages/
 import type Page from "../../types/page.interface";
 import fetchApi from "../fetch";
+import parseLinkHeader from "parse-link-header";
 
 export async function getPages(lang: string) {
 	const response = await fetchApi('/wp-json/wp/v2/pages', {per_page: 100, lang});
@@ -8,7 +9,18 @@ export async function getPages(lang: string) {
 		throw new Error(`Unexpected status code ${response.status}: ${response.statusText}`);
 	}
 
-	const result: Array<Page> = await response.json();
+	let result: Array<Page> = await response.json();
+	let links = parseLinkHeader(response.headers.get('link'));
+
+	while (links?.next?.url) {
+		const response = await fetchApi(links.next.url);
+		result = [
+			...result,
+			...await response.json(),
+		];
+		links = parseLinkHeader(response.headers.get('link'));
+	}
+
 	return result;
 }
   

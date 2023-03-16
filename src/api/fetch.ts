@@ -3,7 +3,8 @@ interface Params {
 }
 
 export default async function fetchApi(path: string, params?: Params, options?: RequestInit) {
-	const endpoint = new URL(`${import.meta.env.BACKEND_API_URL}${path}`);
+	const url = path.includes('://') ? path : `${import.meta.env.BACKEND_API_URL}${path}`;
+	const endpoint = new URL(url);
 
 	endpoint.search = new URLSearchParams({
 		...Object.entries(endpoint.searchParams),
@@ -20,8 +21,15 @@ export default async function fetchApi(path: string, params?: Params, options?: 
 		...options,
 	});
 
+	if (response.status >= 400 && response.status < 500) {
+		const result = await response.json();
+		if (result.code) {
+			console.log(result);
+			throw new Error(`${result.code}: ${result.message}`);
+		}
+	}
 	if (response.status >= 400) {
-		throw new Error(`${response.status}: ${response.statusText}`);
+		throw new Error(`${response.status} on ${endpoint}: ${response.statusText}`);
 	}
 
 	return response;

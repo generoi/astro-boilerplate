@@ -10,7 +10,7 @@ const { page } = Astro.props;
 ---
 
 <article>
-	<a href={`/${page.lang}/${page.slug}`}>
+	<a href={`${new URL(page.link).pathname}`}>
 		<h2>{page.title.rendered}</h2>
 	</a>
 </article>
