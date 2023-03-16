@@ -3,6 +3,7 @@ import { getProduct } from "../../../api/wordpress/products";
 import AddToCart from "../../../components/AddToCart.svelte";
 import ProductGallery from "../../../components/ProductGallery.svelte";
 import Layout from "../../../layouts/Layout.astro";
+import { price } from "../../../utils/formatters";
 
 const { slug, lang } = Astro.params;
 const product = slug && lang ? await getProduct(slug, lang) : null;
@@ -26,6 +27,8 @@ if (!product) {
 			<div>
 				<h1>{product.name}</h1>
 				<div set:html={product.description}></div>
+
+				<div>{price(product.price)}</div>
 
 				<AddToCart
 					client:load

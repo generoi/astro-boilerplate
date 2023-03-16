@@ -2,26 +2,18 @@ import { writable, get } from 'svelte/store';
 import { addToCart, getCart } from '../api/frontend/cart';
 import type Cart from '../types/cocart.interface';
 import type Product from '../types/product.interface';
+import { getCookie, setCookie } from '../utils/cookies';
 
 const COOKIE_CART_KEY = 'cart_key';
-const isClientSide = typeof document !== 'undefined';
 
 export const cartKey = writable('');
 
-function getCookie(name: string) {
-	if (!isClientSide) {
-		return '';
-	}
-	const value = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || '';
-	return value;
-}
-
 cartKey.subscribe((value) => {
-	if (!isClientSide || !value) {
+	if (!value) {
 		return;
 	}
-	const maxAge = cartKey ? 60 * 60 * 24 * 31 : 0;
-	document.cookie = `${COOKIE_CART_KEY}=${encodeURIComponent(value)}; path=/; expires=${maxAge}`
+	const maxAge = 60 * 60 * 24 * 31;
+	setCookie(COOKIE_CART_KEY, value, maxAge);
 });
 
 function createCartStore() {
